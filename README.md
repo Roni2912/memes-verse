@@ -34,6 +34,6 @@ Contributions are welcome! Feel free to fork the repository and submit a pull re
 📜 License
 This project is licensed under the MIT License.
 
-Demo link : https://www.loom.com/share/a219b593f6794a268c8686c9d829e645?sid=dce3454b-a41c-46c8-9f48-2c21fc51740c](https://www.loom.com/share/48977df8fdb84c1fa16b2ccdb4d067ce?sid=be141b00-aee2-412c-9dc7-d7e551ecd6e7
+Demo link : https://www.loom.com/share/48977df8fdb84c1fa16b2ccdb4d067ce?sid=be141b00-aee2-412c-9dc7-d7e551ecd6e7
 
 Let me know if you need any modifications! 😊
