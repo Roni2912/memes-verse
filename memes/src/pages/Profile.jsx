@@ -15,8 +15,8 @@ export default function Profile() {
   const [profileData, setProfileData] = useState(() => {
     const savedData = localStorage.getItem('profileData');
     return savedData ? JSON.parse(savedData) : {
-      name: 'memes hahaha',
-      username: '@memes hahaha',
+      name: 'Ronish',
+      username: '@Ronish13',
       bio: 'Professional Meme Creator 🎭 | Making the internet laugh since 2025',
       avatar: null,
       coverImage: null,
@@ -24,17 +24,10 @@ export default function Profile() {
         posts: 0,
         followers: '1.2K',
         following: 156,
+        likes: 20
       }
     };
   });
-
-  useEffect(() => {
-    // Load saved profile data from localStorage
-    const savedProfileData = localStorage.getItem('profileData');
-    if (savedProfileData) {
-      setProfileData(JSON.parse(savedProfileData));
-    }
-  }, []);
 
   // Tabs configuration
   const tabs = [
@@ -61,24 +54,6 @@ export default function Profile() {
     }
   ];
 
-  // // Handle image upload
-  // const handleImageUpload = (event, type) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       const newProfileData = {
-  //         ...profileData,
-  //         [type]: reader.result
-  //       };
-  //       setProfileData(newProfileData);
-        
-  //       // Save to localStorage
-  //       localStorage.setItem('profileData', JSON.stringify(newProfileData));
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
   const compressImage = async (file, maxSizeMB = 1) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -91,7 +66,6 @@ export default function Profile() {
           let width = img.width;
           let height = img.height;
   
-          // Calculate new dimensions
           if (width > height) {
             if (width > 1200) {
               height *= 1200 / width;
@@ -109,36 +83,26 @@ export default function Profile() {
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, width, height);
           
-          // Get compressed image
           const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.8);
           resolve(compressedDataUrl);
         };
       };
     });
-  };
-  
+  }
   const handleImageUpload = async (event, type) => {
     const file = event.target.files[0];
     if (file) {
       try {
-        // Show loading state
         setIsLoading(true);
-  
-        // Compress image
         const compressedImage = await compressImage(file);
-  
-        // Update profile data
         const newProfileData = {
           ...profileData,
           [type]: compressedImage
         };
         setProfileData(newProfileData);
-        
-        // Save to localStorage
         localStorage.setItem('profileData', JSON.stringify(newProfileData));
       } catch (error) {
         console.error('Error processing image:', error);
-        // Handle error (show toast notification, etc.)
       } finally {
         setIsLoading(false);
       }
@@ -154,7 +118,6 @@ export default function Profile() {
     localStorage.setItem('profileData', JSON.stringify(newProfileData));
   };
 
-  // Fetch memes and liked memes
   useEffect(() => {
     const fetchContent = async () => {
       try {
@@ -165,7 +128,6 @@ export default function Profile() {
           timestamp: new Date().toISOString(),
         }));
 
-        // Get liked memes from localStorage
         const likedMemeIds = Object.keys(localStorage)
           .filter(key => key.includes('-liked') && localStorage.getItem(key) === 'true')
           .map(key => key.replace('meme-', '').replace('-liked', ''));
@@ -177,7 +139,6 @@ export default function Profile() {
         setUserMemes(allMemes.slice(0, 10));
         setLikedMemes(userLikedMemes);
 
-        // Update stats
         setProfileData(prev => ({
           ...prev,
           stats: {
@@ -196,7 +157,6 @@ export default function Profile() {
     fetchContent();
   }, []);
 
-  // Render tab content
   const renderTabContent = () => {
     if (isLoading) {
       return (
@@ -272,7 +232,7 @@ export default function Profile() {
           <motion.label
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="absolute bottom-4  right-4 p-2 bg-white/20 backdrop-blur-sm cursor-pointer hover:bg-white/30 transition-all duration-300"
+            className="absolute bottom-4 right-4 p-2 bg-white/20 backdrop-blur-sm cursor-pointer hover:bg-white/30 transition-all duration-300 rounded-lg"
           >
             <Camera className="w-5 h-5 text-white" />
             <input
@@ -309,7 +269,7 @@ export default function Profile() {
                       </div>
                     )}
                   </div>
-                  <label className="absolute bottom-0 right-0 p-2 rounded-full bg-purple-500 cursor-pointer hover:bg-purple-600 transition-colors">
+                  <label className="absolute -top-1 -right-1 p-2 rounded-full bg-purple-500 cursor-pointer hover:bg-purple-600 transition-colors shadow-md">
                     <Camera className="w-4 h-4 text-white" />
                     <input
                       type="file"
@@ -319,16 +279,14 @@ export default function Profile() {
                     />
                   </label>
                 </div>
-
-                {/* Profile Info */}
-                <div className="flex-1">
+                                {/* Profile Info */}
+                                <div className="flex-1">
                   <div className="flex items-start justify-between">
                     <div>
                       {isEditing ? (
                         <input
                           type="text"
                           value={profileData.name}
-                          // onChange={(e) => setProfileData(prev => ({ ...prev, name: e.target.value }))}
                           onChange={(e) => handleProfileUpdate('name', e.target.value)}
                           className="text-2xl font-bold bg-transparent border-b-2 border-purple-500 focus:outline-none"
                         />
@@ -373,7 +331,6 @@ export default function Profile() {
                   {isEditing ? (
                     <textarea
                       value={profileData.bio}
-                      // onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
                       onChange={(e) => handleProfileUpdate('bio', e.target.value)}
                       className="mt-2 w-full bg-transparent border-2 border-purple-500 rounded-lg p-2 focus:outline-none"
                       rows="3"
@@ -385,9 +342,9 @@ export default function Profile() {
                   )}
 
                   {/* Stats */}
-                  <div className="mt-6 flex gap-6">
+                  <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
                     {Object.entries(profileData.stats).map(([key, value]) => (
-                      <div key={key}>
+                      <div key={key} className="text-center">
                         <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
                           {value}
                         </p>
@@ -404,14 +361,14 @@ export default function Profile() {
 
           {/* Tabs */}
           <div className="flex justify-center mb-8 overflow-x-auto py-2 no-scrollbar">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-xl p-1.5 shadow-lg flex gap-2">
+            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-lg rounded-xl p-1.5 shadow-lg flex flex-col sm:flex-row gap-2">
               {tabs.map((tab) => (
                 <motion.button
                   key={tab.id}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-6 py-2.5 rounded-lg font-medium transition-all flex items-center gap-2 whitespace-nowrap ${
+                  className={`px-6 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 whitespace-nowrap ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
                       : 'text-gray-600 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-gray-700'

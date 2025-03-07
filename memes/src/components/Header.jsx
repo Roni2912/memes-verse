@@ -173,7 +173,7 @@ const Header = () => {
             </AnimatePresence>
           </div>
 
-          {/* Mobile Menu Button */}
+          
           <button
             className="lg:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 z-50"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -196,7 +196,7 @@ const Header = () => {
                   className="self-end p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => setMenuOpen(false)}
                 >
-                  <X size={24} className="text-gray-700 dark:text-gray-300" />
+                  {/* <X size={24} className="text-gray-700 dark:text-gray-300" /> */}
                 </button>
                 
                 <nav className="flex flex-col gap-4 mt-8">
