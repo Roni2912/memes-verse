@@ -64,7 +64,7 @@ function NotFound() {
           className="mb-12 relative max-w-sm mx-auto"
         >
           <img
-            src=".././public/images/4.jpg" 
+            src="/images/4.jpg" 
             alt="Lost in space"
             className="w-full h-auto rounded-xl shadow-lg"
           />
