@@ -51,7 +51,44 @@ const MemeUpload = () => {
     "npm install happiness 💝",
     "git commit -m 'I hope this works' 🙏",
     "When the client wants changes 😅",
-    // Add more captions as needed
+    "Monday.exe has stopped working ⚠️",
+    "Meeting that could've been an email 📧",
+    "When the WiFi drops during your presentation 📊",
+    "5PM: Time to pretend I'm working 🕐",
+    "Reply-all apocalypse incoming 💌",
+    "When you accidentally reply all 😅",
+    "Corporate needs you to find the difference 🔍",
+    "That moment when you actually miss a meeting 😴",
+    "Instagram vs Reality 📸",
+    "When you post a pic but no likes after 5 minutes 😤",
+    "That one friend who always poses 🤳",
+    "Social media detox: Day 0.5 📱",
+    "When you see your ex's story 👀",
+    "TikTok made me do it 🕺",
+    "Living my best life* (*results may vary) ✨",
+    "When you're the last one without BeReal 📱",
+    "When your cat judges your life choices 😾",
+    "Dog logic: Must bark at nothing 🐕",
+    "My pet after I buy them an expensive toy 📦",
+    "When the treat bag makes noise 👂",
+    "3AM zoomies incoming! 🏃‍♂️",
+    "Who's a good boy? Still waiting for an answer 🐶",
+    "Cat.exe has stopped working 🐱",
+    "Plot twist: Life comes with no manual 📖",
+    "When someone says 'be yourself' 🎭",
+    "Living the dream* (*nightmare) 💫",
+    "When you finally adult successfully 🎉",
+    "That moment when you realize tomorrow is today 😳",
+    "When someone asks about your 5-year plan 🗓️",
+    "Loading personality... please wait ⌛",
+    "Single and ready to get nervous around people 💝",
+    "When they don't get your movie references 🎬",
+    "Netflix and actually chill 😴",
+    "Relationship status: Made dinner for two. Ate both. 🍽️",
+    "When they say 'we need to talk' 😰",
+    "Third wheeling like a pro 🛵",
+    "When you match with your ex 😱",
+    
   ];
 
   const handleFileChange = (event) => {
@@ -127,6 +164,13 @@ const MemeUpload = () => {
             };
 
             console.log("Meme data:", memeData);
+
+            setFile(null);
+            setSelectedFile(null);
+            setPreviewUrl(null);
+            setCaption("");
+            setUploadSuccess(true);
+            setTimeout(() => setUploadSuccess(false), 2000);
           }
         } catch (err) {
           setError(err.response?.data?.error?.message || "Failed to upload image");
