@@ -18,7 +18,7 @@ MemeVerse is a modern meme creation and sharing platform built with **React**, *
 ## 📦 Installation  
 
 1. **Clone the repository**
-    git clone https://github.com/your-username/MemeVerse.git
+    git clone https://github.com/Roni2912/MemeVerse.git
     cd MemeVerse
    
 3. **Install dependencies**
