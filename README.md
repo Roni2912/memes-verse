@@ -21,7 +21,7 @@ Demo link : https://memes-verse.vercel.app/
 
 1. **Clone the repository**
     ```bash
-    git clone https://github.com/Roni2912/MemeVerse.git
+    git clone https://github.com/Roni2912/memes-verse
     cd MemeVerse
    
 3. **Install dependencies**
