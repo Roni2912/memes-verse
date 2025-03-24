@@ -22,7 +22,7 @@ Demo link : https://memes-verse.vercel.app/
 1. **Clone the repository**
     ```bash
     git clone https://github.com/Roni2912/memes-verse
-    cd MemeVerse
+    cd memes-verse/memes
    
 3. **Install dependencies**
    ```bash
@@ -30,7 +30,7 @@ Demo link : https://memes-verse.vercel.app/
    
 5. **Start the development server**
    ```bash
-   npm start
+   npm run dev
 
 
 🤝 Contributing
