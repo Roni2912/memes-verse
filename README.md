@@ -1,43 +1,63 @@
-# MemeVerse 🎭  
+# MemeVerse
 
-MemeVerse is a modern meme creation and sharing platform built with **React**, **Tailwind CSS**, and **Framer Motion**. It allows users to create, save, and explore memes with a fun and interactive experience.  
+A meme discovery and creation app built with **React 19, Redux Toolkit, React Router and Tailwind CSS**.
 
-Demo link : https://memes-verse.vercel.app/
+Live demo: https://memes-verse.vercel.app/
 
-## 🚀 Features  
-- 🎨 **Meme Creation** – Customize memes using text and styling options  
-- ❤️ **Like & Save Memes** – Interact with memes and save your favorites  
-- 👤 **User Profiles** – Track your created and liked memes  
-- 🏆 **Leaderboard** – See the most popular memes and top creators  
-- 🌙 **Dark Mode** – Enjoy MemeVerse in your preferred theme  
+## Features
 
-## 🛠 Tech Stack  
-- **Frontend:** React, Tailwind CSS, Framer Motion  
-- **State Management:** Context API  
-- **API Integration:** ImgFlip API for meme templates  
-- **Storage:** Local Storage for user preferences  
+- **Explore** - search, sort, filter (liked / saved), grid and list views, "show more" pagination
+- **Create** - caption a template or your own image on a canvas, download it or save it to your profile
+- **Meme details** - like, save, share, comment, and open the editor with the template pre-selected
+- **Leaderboard** - the most-used templates ranked by caption count
+- **Profile** - your memes, liked and saved collections, editable profile, avatar and cover
+- **Settings** - light / dark / system theme, profile editing, clear local data
+- Responsive, keyboard accessible, respects `prefers-reduced-motion`
 
-## 📦 Installation  
+## Project structure
 
-1. **Clone the repository**
-    ```bash
-    git clone https://github.com/Roni2912/memes-verse
-    cd memes-verse/memes
-   
-3. **Install dependencies**
-   ```bash
-   npm install
-   
-5. **Start the development server**
-   ```bash
-   npm run dev
+```
+src/
+├── config/        # site metadata, routes, nav, constants
+├── services/      # API clients (Imgflip templates, optional ImgBB upload)
+├── store/         # Redux slices (interactions, profile) + localStorage persistence
+├── context/       # Theme and toast providers
+├── hooks/         # useMemes, useShare, useClickOutside, useDocumentTitle
+├── utils/         # formatting, storage, image + canvas helpers
+├── components/    # ui/ (primitives), layout/, meme/, profile/
+├── pages/         # route-level components
+└── styles/        # global.css - design tokens + shared component classes
+```
 
+## Theming
 
-🤝 Contributing
-Contributions are welcome! Feel free to fork the repository and submit a pull request.
+All colours live in `src/styles/global.css` as CSS variables (a light set and a `.dark` set) and are
+exposed to Tailwind as semantic tokens (`bg-surface`, `text-muted`, `border-line`, `bg-accent`, …).
+Re-skin the whole app by editing those variables; components never hard-code colours.
 
-📜 License
-This project is licensed under the MIT License.
+## Getting started
 
+```bash
+git clone https://github.com/Roni2912/memes-verse
+cd memes-verse
+npm install
+npm run dev
+```
 
-Let me know if you need any modifications! 😊
+### Optional: image hosting
+
+Copy `.env.example` to `.env` and set `VITE_IMGBB_API_KEY` to also upload saved memes to
+[ImgBB](https://api.imgbb.com/). Without it, saved memes are kept in the browser.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run preview` | Preview the build |
+| `npm run lint` | Lint the project |
+
+## Deployment
+
+Deployed on Vercel from the repository root. `vercel.json` rewrites every route to `index.html` for client-side routing.

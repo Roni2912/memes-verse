@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   Design tokens: the single source of truth for colour, radius, shadow.
+   Values are space-separated RGB channels so Tailwind can apply opacity.
+   ===================================================================== */
+:root {
+  --color-background: 250 249 247;
+  --color-surface: 255 255 255;
+  --color-subtle: 244 242 238;
+  --color-line: 229 226 220;
+  --color-foreground: 28 25 23;
+  --color-muted: 107 102 96;
+
+  --color-accent: 37 109 106;
+  --color-accent-hover: 33 89 87;
+  --color-accent-soft: 232 244 243;
+  --color-accent-foreground: 255 255 255;
+
+  --color-danger: 190 52 52;
+  --color-danger-soft: 252 235 235;
+  --color-success: 30 126 82;
+  --color-success-soft: 229 244 236;
+
+  --radius-card: 0.875rem;
+  --radius-control: 0.625rem;
+  --shadow-card: 0 1px 2px rgb(28 25 23 / 0.05);
+  --shadow-pop: 0 10px 30px -8px rgb(28 25 23 / 0.18);
+
+  --header-height: 4rem;
+  color-scheme: light;
+}
+
+.dark {
+  --color-background: 15 14 13;
+  --color-surface: 24 22 21;
+  --color-subtle: 33 31 29;
+  --color-line: 48 45 42;
+  --color-foreground: 245 242 238;
+  --color-muted: 163 157 149;
+
+  --color-accent: 94 190 184;
+  --color-accent-hover: 128 207 202;
+  --color-accent-soft: 24 48 47;
+  --color-accent-foreground: 12 30 29;
+
+  --color-danger: 240 108 108;
+  --color-danger-soft: 58 28 28;
+  --color-success: 86 195 138;
+  --color-success-soft: 24 48 36;
+
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-pop: 0 10px 30px -8px rgb(0 0 0 / 0.6);
+  color-scheme: dark;
+}
+
+/* =====================================================================
+   Base
+   ===================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-semibold tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+  ::selection {
+    @apply bg-accent/25;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* =====================================================================
+   Reusable component classes
+   ===================================================================== */
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-control px-4 py-2 text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-accent text-accent-foreground hover:bg-accent-hover;
+  }
+  .btn-secondary {
+    @apply btn border border-line bg-surface text-foreground hover:bg-subtle;
+  }
+  .btn-ghost {
+    @apply btn text-muted hover:bg-subtle hover:text-foreground;
+  }
+  .btn-danger {
+    @apply btn border border-danger/30 bg-danger-soft text-danger hover:border-danger/60;
+  }
+  .btn-icon {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-control text-muted transition-colors hover:bg-subtle hover:text-foreground;
+  }
+
+  /* Surfaces */
+  .card {
+    @apply rounded-card border border-line bg-surface shadow-card;
+  }
+
+  /* Form controls */
+  .input {
+    @apply w-full rounded-control border border-line bg-surface px-3.5 py-2 text-sm text-foreground placeholder:text-muted/70 transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-foreground;
+  }
+
+  /* Pills / chips */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm font-medium text-muted transition-colors hover:text-foreground;
+  }
+  .chip[aria-pressed='true'],
+  .chip.is-active {
+    @apply border-accent bg-accent-soft text-accent;
+  }
+
+  .nav-link {
+    @apply rounded-control px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-foreground;
+  }
+  .nav-link.is-active {
+    @apply bg-subtle text-foreground;
+  }
+
+  .menu-item {
+    @apply flex w-full items-center gap-3 rounded-control px-3 py-2 text-sm text-foreground transition-colors hover:bg-subtle;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest text-accent;
+  }
+}
+
+/* =====================================================================
+   Utilities & the only animations used in the app
+   ===================================================================== */
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .animate-page {
+    animation: page-in 0.25s ease-out both;
+  }
+  .animate-pop {
+    animation: pop-in 0.15s ease-out both;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
